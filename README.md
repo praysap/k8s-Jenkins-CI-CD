@@ -262,13 +262,62 @@ pipeline {
 <img width="959" height="440" alt="image" src="https://github.com/user-attachments/assets/c82945fa-2d64-45ce-8548-69a006d47d03" />
 
 
-### Validation commands
-Compare deploy version of helm
+# 🛠 Debugging & Helm Commands for Kubernetes (Namespace: mern)
+
+Use the following commands to debug and inspect your resources within the `mern` namespace.
+
+## 🔍 Kubernetes Commands
+
 ```bash
-helm history chart_name -n namespace_name
+# Get all pods
+kubectl get pods -n mern
+
+# Describe a specific pod
+kubectl describe pod <pod-name> -n mern
+
+# View logs of a pod
+kubectl logs <pod-name> -n mern
+
+# Follow logs in real-time
+kubectl logs -f <pod-name> -n mern
+
+# Exec into a pod using bash (or sh if bash is unavailable)
+kubectl exec -it <pod-name> -n mern -- /bin/bash
+# or
+kubectl exec -it <pod-name> -n mern -- /bin/sh
+
+# List services
+kubectl get svc -n mern
+
+# Describe a specific service
+kubectl describe svc learn-api-service -n mern
+
+# List deployments
+kubectl get deployments -n mern
+
+# Describe a deployment
+kubectl describe deployment learn-api -n mern
+
+# Port forward to access service locally
+kubectl port-forward service/learn-api-service 3001:3001 -n mern
+
+# Test service locally via curl
+curl localhost:3001
 ```
-EXAMPLE 
+
+## 📦 Helm Commands
+
 ```bash
-helm history mern-chart -n mern
+# List Helm releases in namespace
+helm list -n mern
+
+# Get Helm chart values
+helm get values learn-api -n mern
+
+# Get history of Helm deployments
+helm history <chart-name>
+
+# View rendered Helm manifest
+helm get manifest learn-api -n mern
 ```
----
+
