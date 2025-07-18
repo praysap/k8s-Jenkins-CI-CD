@@ -268,52 +268,52 @@ Use the following commands to debug and inspect your resources within the `mern`
 
 ### 🔍 Kubernetes Commands
 
-###  Get all pods
+ ###  Get all pods
 ```bash
 kubectl get pods -n mern
 ```
-###  Describe a specific pod
+ ###  Describe a specific pod
 ```bash
 kubectl describe pod <pod-name> -n mern
 ```
-###  View logs of a pod
+ ###  View logs of a pod
 ```bash
 kubectl logs <pod-name> -n mern
 ```
-###  Follow logs in real-time
+ ###  Follow logs in real-time
 ```bash
 kubectl logs -f <pod-name> -n mern
 ```
 
-###  Exec into a pod using bash (or sh if bash is unavailable)
+ ###  Exec into a pod using bash (or sh if bash is unavailable)
 ```bash
 kubectl exec -it <pod-name> -n mern -- /bin/bash
 ```
 ```bash
 kubectl exec -it <pod-name> -n mern -- /bin/sh
 ```
-###  List services
+ ###  List services
 ```bash
 kubectl get svc -n mern
 ```
 
-###  Describe a specific service
+ ###  Describe a specific service
 ```bash
 kubectl describe svc learn-api-service -n mern
 ```
-###  List deployments
+ ###  List deployments
 ```bash
 kubectl get deployments -n mern
 ```
-###  Describe a deployment
+ ###  Describe a deployment
 ```bash
 kubectl describe deployment learn-api -n mern
 ```
-###  Port forward to access service locally
+ ###  Port forward to access service locally
 ```bash
 kubectl port-forward service/learn-api-service 3001:3001 -n mern
 ```
-###  Test service locally via curl
+ ###  Test service locally via curl
 ```bash
 curl localhost:3001
 ```
@@ -321,22 +321,22 @@ curl localhost:3001
 
 ### 📦 Helm Commands
 
-###  List Helm releases in namespace
+ ###  List Helm releases in namespace
 ```bash
 helm list -n mern
 ```
 
-###  Get Helm chart values
+ ###  Get Helm chart values
 ```bash
 helm get values learn-api -n mern
 ```
 
-###  Get history of Helm deployments
+ ###  Get history of Helm deployments
 ```bash
 helm history <chart-name>
 ```
 
-### View rendered Helm manifest
+ ### View rendered Helm manifest
 ```bash
 helm get manifest learn-api -n mern
 ```
