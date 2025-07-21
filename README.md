@@ -69,6 +69,9 @@ helm create mern-app
 cd mern-app dir
 ```
 ```bash
+kubectl config set-context --current --namespace mern
+```
+```bash
 helm upgrade --install mern-app . --namespace mern --create-namespace
 ```
 ---
