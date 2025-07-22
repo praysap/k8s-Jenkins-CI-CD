@@ -305,12 +305,13 @@ pipeline {
     agent any
     
     environment {
-        REPO_URL = 'https://github.com/vipulsaw/Container-Orchestration-1.git'
-        REPO_NAME = 'Container-Orchestration-1'
-        HELM_CHART_DIR = 'mern-chart'
+        REPO_URL = 'https://github.com/vipulsaw/Container-Orchestration-2.git'
+        REPO_NAME = 'Container-Orchestration-2'
+        HELM_CHART_DIR = 'mern-app'
         NAMESPACE = 'mern'
         RELEASE_NAME = 'mern-app'
-        EC2_INSTANCE_IP = '54.145.162.64'
+        EC2_INSTANCE_IP = '13.203.66.123'
+        DOCKER_HUB_REPO = 'vipulsaw123'
     }
     
     stages {
@@ -323,24 +324,47 @@ pipeline {
             }
         }
         
+        stage('Build Docker Images') {
+            steps {
+                script {
+                    docker.build("${env.DOCKER_HUB_REPO}/learner-frontend:latest", './learnerReportCS_frontend')
+                    docker.build("${env.DOCKER_HUB_REPO}/learner-backend:latest", './learnerReportCS_backend')
+                    echo "Docker images built successfully"
+                }
+            }
+        }
+        
+        stage('Push Docker Images') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(
+                        credentialsId: 'docker-hub-credentials-Vipul', 
+                        usernameVariable: 'DOCKER_HUB_USER', 
+                        passwordVariable: 'DOCKER_HUB_PASSWORD'
+                    )]) {
+                        sh "echo \$DOCKER_HUB_PASSWORD | docker login -u \$DOCKER_HUB_USER --password-stdin"
+                        sh "docker push ${env.DOCKER_HUB_REPO}/learner-frontend:latest"
+                        sh "docker push ${env.DOCKER_HUB_REPO}/learner-backend:latest"
+                        echo "Docker images pushed to Docker Hub successfully"
+                    }
+                }
+            }
+        }
+        
         stage('Copy Repository to Target EC2') {
             steps {
-                sshagent(credentials: ['vipul']) {
+                sshagent(credentials: ['vipulroot']) {
                     script {
-                        // Create directory on remote if it doesn't exist
                         sh """
-                            ssh -o StrictHostKeyChecking=no ubuntu@${env.EC2_INSTANCE_IP} \
+                            ssh -o StrictHostKeyChecking=no root@${env.EC2_INSTANCE_IP} \
                             'mkdir -p ~/${env.REPO_NAME}'
                         """
-                        
-                        // Copy files using rsync
                         sh """
                             rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
                             --exclude='.git' \
                             --delete \
-                            ./ ubuntu@${env.EC2_INSTANCE_IP}:~/${env.REPO_NAME}/
+                            ./ root@${env.EC2_INSTANCE_IP}:~/${env.REPO_NAME}/
                         """
-                        
                         echo "Files copied to EC2 instance successfully"
                     }
                 }
@@ -349,17 +373,15 @@ pipeline {
         
         stage('Install/Upgrade Helm Release') {
             steps {
-                sshagent(credentials: ['vipul']) {
+                sshagent(credentials: ['vipulroot']) {
                     script {
-                        // Run helm upgrade
                         sh """
-                            ssh -o StrictHostKeyChecking=no ubuntu@${env.EC2_INSTANCE_IP} \
+                            ssh -o StrictHostKeyChecking=no root@${env.EC2_INSTANCE_IP} \
                             'cd ~/${env.REPO_NAME}/${env.HELM_CHART_DIR} && \
                             helm upgrade --install ${env.RELEASE_NAME} . \
                             --namespace ${env.NAMESPACE} \
                             --create-namespace'
                         """
-                        
                         echo "Helm release upgraded successfully"
                     }
                 }
@@ -368,10 +390,10 @@ pipeline {
         
         stage('Verify Deployment') {
             steps {
-                sshagent(credentials: ['vipul']) {
+                sshagent(credentials: ['vipulroot']) {
                     script {
                         sh """
-                            ssh -o StrictHostKeyChecking=no ubuntu@${env.EC2_INSTANCE_IP} \
+                            ssh -o StrictHostKeyChecking=no root@${env.EC2_INSTANCE_IP} \
                             'helm list -n ${env.NAMESPACE} && \
                             kubectl get pods -n ${env.NAMESPACE}'
                         """
@@ -382,15 +404,11 @@ pipeline {
     }
     
     post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed! Check the logs for details.'
+        always {
+            echo 'Pipeline completed!'
         }
     }
 }
-
 ```
 
 <img width="959" height="440" alt="image" src="https://github.com/user-attachments/assets/c82945fa-2d64-45ce-8548-69a006d47d03" />
