@@ -128,25 +128,33 @@ sudo chmod 777 /var/run/docker.sock
 ```bash
 kubectl create namespace mern
 ```
+<img width="722" height="59" alt="image" src="https://github.com/user-attachments/assets/fe12b4cc-f40d-4fd2-9df4-a4609731152f" />
+
 
 - <i> Update kubernetes config context : 
 ```bash
 kubectl config set-context --current --namespace mern
 ```
+<img width="926" height="30" alt="image" src="https://github.com/user-attachments/assets/0959764b-3855-4dfc-a28b-62c8eb6d1910" />
 
-- <i> Enable DNS resolution on kubernetes cluster :
+
+### Enable DNS resolution on kubernetes cluster :
 
 - Check coredns pod in kube-system namespace and you will find <i> Both coredns pods are running on master node </i>
 
 ```bash
 kubectl get pods -n kube-system -o wide | grep -i core
 ```
+<img width="843" height="76" alt="image" src="https://github.com/user-attachments/assets/47d03409-d880-4695-937b-30160eab8eb3" />
+
 - Above step will run coredns pod on worker node as well for DNS resolution
 
 ```bash
 kubectl edit deploy coredns -n kube-system -o yaml
 ```
 - <i> Make replica count from 2 to 4 </i>
+<img width="847" height="527" alt="image" src="https://github.com/user-attachments/assets/39f91fdc-b840-40bb-be43-126e7683f6f4" />
+
 
 ###  Build the Docker image (frontend)
 ```bash
