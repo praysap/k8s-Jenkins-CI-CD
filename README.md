@@ -124,7 +124,31 @@ sudo apt install docker.io -y
 ```bash
 sudo chmod 777 /var/run/docker.sock
 ```
+# Create kubernetes namespace :
+```bash
+kubectl create namespace mern
+```
 
+# Update kubernetes config context : 
+```bash
+kubectl config set-context --current --namespace mern
+```
+
+# Enable DNS resolution on kubernetes cluster :
+
+- Check coredns pod in kube-system namespace and you will find <i> Both coredns pods are running on master node </i>
+
+```bash
+kubectl get pods -n kube-system -o wide | grep -i core
+```
+- Above step will run coredns pod on worker node as well for DNS resolution
+
+```bash
+kubectl edit deploy coredns -n kube-system -o yaml
+```
+<i> Make replica count from 2 to 4 </i>
+
+#
 ###  Build the Docker image (frontend)
 ```bash
 docker image build --no-cache --build-arg REACT_APP_API_BASE_URL=http://10.228.12.107:30585 -t praysap/learner-frontend:latest .
