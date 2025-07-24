@@ -111,7 +111,7 @@ kubeadm token create --print-join-command
 ```
 ---
 ### On Worker node
- <i> Paste the join command you got from the master node and append --v=5 at the end </i>
+- <i> Paste the join command you got from the master node and append --v=5 at the end </i>
 
 ```bash
 <join-command> --v=5
@@ -124,14 +124,14 @@ sudo apt install docker.io -y
 ```bash
 sudo chmod 777 /var/run/docker.sock
 ```
- <i> Create kubernetes namespace :
+- <i> Create kubernetes namespace :
 ```bash
 kubectl create namespace mern
 ```
 <img width="722" height="59" alt="image" src="https://github.com/user-attachments/assets/fe12b4cc-f40d-4fd2-9df4-a4609731152f" />
 
 
- <i> Update kubernetes config context : 
+- <i> Update kubernetes config context : 
 ```bash
 kubectl config set-context --current --namespace mern
 ```
@@ -238,12 +238,12 @@ kubectl delete all --all -n mern
 - This deletes:Pods,Services,Deployments,ReplicaSets and Any other workload in that namespace
 ---
 
-#### Minikube [local]
+#### Kubeadm [local]
 
 <img width="939" height="238" alt="image" src="https://github.com/user-attachments/assets/7a4b26e1-69f7-47ad-a970-b5f6e741252d" />
 
 ---
-#### Minikube [EC-2/Ubuntu]
+#### Kubeadm [EC-2/Ubuntu]
 
 <img width="939" height="254" alt="image" src="https://github.com/user-attachments/assets/6e02e259-0119-43c0-88d2-e2430cba0f1b" />
 
@@ -282,6 +282,130 @@ Mongo DB available at: mongodb://public-ip:28017<br>
 ---
 
 ## ⚙️ Jenkins configuration
+# 🚀 Jenkins Installation Guide on Ubuntu 24.04
+
+This guide provides a step-by-step approach to install Jenkins on **Ubuntu 24.04**.
+
+---
+
+## ✅ Prerequisites
+
+- 🐧 Ubuntu 24.04 system
+- 🔑 `sudo` privileges
+- ☕ Java (OpenJDK 11 or 17 — recommended: 17)
+
+---
+
+## 🔄 Post-Installation Recommendations
+
+✅ Install the following plugins during setup:
+
+- Pipeline
+- Docker Pipeline
+- Git
+- SSH Agent
+- Credentials Binding
+- Kubernetes CLI
+- Helm
+
+---
+
+## 🛠️ Installation Steps
+
+### 1. 🔄 Update System Packages
+
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+### 2. ☕ Install Java (OpenJDK 17)
+
+```bash
+sudo apt install -y openjdk-17-jdk
+```
+
+🔍 Verify Java installation:
+
+```bash
+java -version
+```
+
+### 3. 📦 Add Jenkins Repository and Key
+
+```bash
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" | \
+  sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+```
+
+### 4. 🧰 Install Jenkins
+
+```bash
+sudo apt update
+sudo apt install -y jenkins
+```
+
+### 5. 🚀 Start and Enable Jenkins
+
+```bash
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+```
+
+Check Jenkins service status:
+
+```bash
+sudo systemctl status jenkins
+```
+
+### 6. 🔥 Open Firewall (if enabled)
+
+```bash
+sudo ufw allow 8080
+sudo ufw allow OpenSSH
+sudo ufw enable
+```
+
+### 7. 🌐 Access Jenkins
+
+Open your browser and go to: `http://your_server_ip:8080`
+
+🔑 Retrieve the initial admin password:
+
+```bash
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+
+Follow the setup wizard to:
+
+- Create your first admin user 👤
+- Install recommended plugins 🔌
+- Configure Jenkins as needed ⚙️
+
+### 🔧 Optional: Change Jenkins Port
+
+Edit the Jenkins config file:
+
+```bash
+sudo nano /etc/default/jenkins
+```
+
+Change the line:
+
+```
+HTTP_PORT=8080
+```
+
+Restart Jenkins:
+
+```bash
+sudo systemctl restart jenkins
+```
+
+---
+
 ### Pipeline setup
 1. Create Jenkinsfile inside your project directory.
 2. Create dockerhub credentials in jenkins.
