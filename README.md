@@ -473,22 +473,22 @@ curl localhost:3001
 
 ### 📦 Helm Commands
 
- ###  List Helm releases in namespace
+ - <i>  List Helm releases in namespace
 ```bash
 helm list -n mern
 ```
 
- ###  Get Helm chart values
+ - <i>  Get Helm chart values
 ```bash
 helm get values learn-api -n mern
 ```
 
- ###  Get history of Helm deployments
+- <i> Get history of Helm deployments
 ```bash
 helm history <chart-name>
 ```
 
- ### View rendered Helm manifest
+ - <i>  View rendered Helm manifest 
 ```bash
 helm get manifest learn-api -n mern
 ```
