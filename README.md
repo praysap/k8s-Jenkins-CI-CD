@@ -1,7 +1,7 @@
 # 🚀 Kubernetes MERN Stack Deployment using Helm & Jenkins
 
 This repository contains a complete Kubernetes deployment setup for a MERN (MongoDB, Express.js, React, Node.js) application using:
-- 🧠 **Kubernetes** for container orchestration
+- 🧠 **Kubernetes(kubeadm)** for container orchestration
 - 📦 **Helm** for templated, reusable Kubernetes manifests
 - 🐳 **Docker** for containerizing the applications
 - ⚙️ **Jenkins** (optional) for CI/CD automation
