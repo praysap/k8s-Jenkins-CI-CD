@@ -27,7 +27,7 @@ This repository contains a complete Kubernetes deployment setup for a MERN (Mong
 ##  Setup Kubernetes [Kubeadm] Cluster (Version: 1.29)
 
 ### On both master & worker nodes
-- <i>  Become root user </i>
+ <i>  Become root user </i>
 ```bash
 sudo su
 ```
@@ -38,7 +38,7 @@ sudo apt-get update
 ```
 
 
-- <i> Create a shell script 1.sh and paste the below code and run it :
+ <i> Create a shell script 1.sh and paste the below code and run it :
 ```bash
 #!/bin/bash
 # disable swap
@@ -93,7 +93,7 @@ sudo systemctl start kubelet
 ```
 
 ### On Master node
-- <i> Create a shell script 2.sh and paste the below code and run it </i>
+ <i> Create a shell script 2.sh and paste the below code and run it </i>
 ```bash
 sudo kubeadm config images pull
 
@@ -111,7 +111,7 @@ kubeadm token create --print-join-command
 ```
 
 ### On Worker node
-- <i> Paste the join command you got from the master node and append --v=5 at the end </i>
+ <i> Paste the join command you got from the master node and append --v=5 at the end </i>
 
 ```bash
 <join-command> --v=5
@@ -124,14 +124,14 @@ sudo apt install docker.io -y
 ```bash
 sudo chmod 777 /var/run/docker.sock
 ```
-- <i> Create kubernetes namespace :
+ <i> Create kubernetes namespace :
 ```bash
 kubectl create namespace mern
 ```
 <img width="722" height="59" alt="image" src="https://github.com/user-attachments/assets/fe12b4cc-f40d-4fd2-9df4-a4609731152f" />
 
 
-- <i> Update kubernetes config context : 
+ <i> Update kubernetes config context : 
 ```bash
 kubectl config set-context --current --namespace mern
 ```
@@ -156,18 +156,18 @@ kubectl edit deploy coredns -n kube-system -o yaml
 <img width="847" height="527" alt="image" src="https://github.com/user-attachments/assets/39f91fdc-b840-40bb-be43-126e7683f6f4" />
 
 
-- <i>  **Build the Docker image (frontend)**
+ <i>  **Build the Docker image (frontend)**
 ```bash
 docker image build --no-cache --build-arg REACT_APP_API_BASE_URL=http://10.228.12.107:30585 -t praysap/learner-frontend:latest .
 ```
-- <i> **Push the image to Docker Hub**
+ <i> **Push the image to Docker Hub**
 ```bash
 docker push praysap/learner-frontend:latest
 ```
 <img width="944" height="441" alt="image" src="https://github.com/user-attachments/assets/ef1191ce-0114-461f-a9bf-e604704851ef" />
 
 
-- <i> **Build the Docker image (backend)**
+ <i> **Build the Docker image (backend)**
 ```bash
 docker build -t praysap/learner-backend:latest .
 ```
@@ -420,19 +420,19 @@ Use the following commands to debug and inspect your resources within the `mern`
 
 ### 🔍 Kubernetes Commands
 
- - <i>  **Get all pods**
+  <i>  **Get all pods**
 ```bash
 kubectl get pods -n mern
 ```
-- <i> **Describe a specific pod**
+ <i> **Describe a specific pod**
 ```bash
 kubectl describe pod <pod-name> -n mern
 ```
-- <i> **View logs of a pod**
+ <i> **View logs of a pod**
 ```bash
 kubectl logs <pod-name> -n mern
 ```
- - <i> **Follow logs in real-time**
+  <i> **Follow logs in real-time**
 ```bash
 kubectl logs -f <pod-name> -n mern
 ```
@@ -444,28 +444,28 @@ kubectl exec -it <pod-name> -n mern -- /bin/bash
 ```bash
 kubectl exec -it <pod-name> -n mern -- /bin/sh
 ```
- - <i>  **List services**
+  <i>  **List services**
 ```bash
 kubectl get svc -n mern
 ```
 
- - <i>  **Describe a specific service**
+  <i>  **Describe a specific service**
 ```bash
 kubectl describe svc learn-api-service -n mern
 ```
- - <i>  **List deployments**
+  <i>  **List deployments**
 ```bash
 kubectl get deployments -n mern
 ```
- - <i>  **Describe a deployment**
+  <i>  **Describe a deployment**
 ```bash
 kubectl describe deployment learn-api -n mern
 ```
-- <i> **Port forward to access service locally**
+ <i> **Port forward to access service locally**
 ```bash
 kubectl port-forward service/learn-api-service 3001:3001 -n mern
 ```
-  - <i>  **Test service locally via curl**
+   <i>  **Test service locally via curl**
 ```bash
 curl localhost:3001
 ```
@@ -473,22 +473,22 @@ curl localhost:3001
 
 ### 📦 Helm Commands
 
- - <i>  **List Helm releases in namespace**
+  <i>  **List Helm releases in namespace**
 ```bash
 helm list -n mern
 ```
 
- - <i>  **Get Helm chart values**
+  <i>  **Get Helm chart values**
 ```bash
 helm get values learn-api -n mern
 ```
 
-- <i> **Get history of Helm deployments**
+ <i> **Get history of Helm deployments**
 ```bash
 helm history <chart-name>
 ```
 
- - <i>  **View rendered Helm manifest** 
+  <i>  **View rendered Helm manifest** 
 ```bash
 helm get manifest learn-api -n mern
 ```
