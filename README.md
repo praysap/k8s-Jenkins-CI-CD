@@ -91,7 +91,7 @@ sudo apt-get install -y jq
 sudo systemctl enable --now kubelet
 sudo systemctl start kubelet
 ```
-
+---
 ### On Master node
  <i> Create a shell script 2.sh and paste the below code and run it </i>
 ```bash
@@ -109,7 +109,7 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/
 
 kubeadm token create --print-join-command
 ```
-
+---
 ### On Worker node
  <i> Paste the join command you got from the master node and append --v=5 at the end </i>
 
@@ -137,6 +137,7 @@ kubectl config set-context --current --namespace mern
 ```
 <img width="926" height="30" alt="image" src="https://github.com/user-attachments/assets/0959764b-3855-4dfc-a28b-62c8eb6d1910" />
 
+---
 
 ### Enable DNS resolution on kubernetes cluster :
 
@@ -178,11 +179,12 @@ docker push praysap/learner-backend:latest
 <img width="944" height="434" alt="image" src="https://github.com/user-attachments/assets/ea646965-0d78-47ac-9080-3c044fe3ef77" />
 <img width="941" height="177" alt="image" src="https://github.com/user-attachments/assets/ecb46d95-6905-4f39-8f0c-846770bbfe25" />
 
-
+---
  ### 📥 Install Helm CLI on Linux/mascOS
 ```bash
 curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 ```
+---
 ### 📥 Install Helm on On Windows (via Chocolatey):
 ```bash
 choco install kubernetes-helm
@@ -195,6 +197,7 @@ helm version
 ```bash
 helm create mern-app
 ```
+---
 ### 🚀 Deployment with Helm
 ```bash
 cd mern-app dir
@@ -239,10 +242,12 @@ kubectl delete all --all -n mern
 
 <img width="939" height="238" alt="image" src="https://github.com/user-attachments/assets/7a4b26e1-69f7-47ad-a970-b5f6e741252d" />
 
+---
 #### Minikube [EC-2/Ubuntu]
 
 <img width="939" height="254" alt="image" src="https://github.com/user-attachments/assets/6e02e259-0119-43c0-88d2-e2430cba0f1b" />
 
+---
 
 ## 🌐 Access the App 
 ### Test via Port Forwarding [Local]
@@ -264,6 +269,7 @@ Backend App available at: http://10.228.12.107:30585<br>
 
 Mongo DB available at: mongodb://localhost:27017<br>
 
+---
 ### Test via Port Forwarding [Ec-2/Ubuntu]
 ```bash
 kubectl port-forward svc/frontend-service -n mern 8080:80 --address=0.0.0.0
@@ -273,25 +279,6 @@ kubectl port-forward svc/mongo 28017:27017 -n mern
 
 Mongo DB available at: mongodb://public-ip:28017<br>
 
-### Test via Minikube (OPTIONAL)
-```bash
-minikube service frontend-service -n mern
-```
-- This will open your browser or give you a URL — check the site.
----
-
-## Configuration
-### .env file in Backend
-```bash
-ATLAS_URI=mongodb://mongo:27017/blog_mern
-```
-### .env file in Frontend
-Based on your setup you need to update.
-```bash
-REACT_APP_API_BASE_URL=http://backend-service:3000
-OR
-REACT_APP_API_BASE_URL=http://localhost:3000
-```
 ---
 
 ## ⚙️ Jenkins configuration
@@ -413,7 +400,7 @@ pipeline {
 
 <img width="959" height="440" alt="image" src="https://github.com/user-attachments/assets/c82945fa-2d64-45ce-8548-69a006d47d03" />
 
-
+---
 ### 🛠 Debugging & Helm Commands for Kubernetes (Namespace: mern)
 
 Use the following commands to debug and inspect your resources within the `mern` namespace.
@@ -469,7 +456,7 @@ kubectl port-forward service/learn-api-service 3001:3001 -n mern
 ```bash
 curl localhost:3001
 ```
-
+---
 
 ### 📦 Helm Commands
 
@@ -492,4 +479,4 @@ helm history <chart-name>
 ```bash
 helm get manifest learn-api -n mern
 ```
-
+---
