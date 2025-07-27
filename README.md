@@ -521,6 +521,9 @@ pipeline {
     }
 }
 ```
+<img width="959" height="450" alt="jenkins_k8s_pipeline1" src="https://github.com/user-attachments/assets/4e4981ec-b9f1-44b5-aeee-132be6442663" />
+<img width="959" height="450" alt="jenkins_k8s_pipeline2" src="https://github.com/user-attachments/assets/15a420f7-c563-4f01-bec5-dbfcdf0b8386" />
+<img width="959" height="450" alt="pipeline_overview" src="https://github.com/user-attachments/assets/70a8c729-f439-4ca2-a1c0-177350fea895" />
 
 <img width="959" height="440" alt="image" src="https://github.com/user-attachments/assets/c82945fa-2d64-45ce-8548-69a006d47d03" />
 
