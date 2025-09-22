@@ -5,8 +5,8 @@ FROM node:18-alpine AS build
 WORKDIR /app
 
 # Accept build-time environment variable
-ARG REACT_APP_API_BASE_URL
-ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
+#ARG REACT_APP_API_BASE_URL
+#ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
 
 # Copy and install dependencies
 COPY package*.json ./
@@ -38,4 +38,3 @@ EXPOSE 80
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
-

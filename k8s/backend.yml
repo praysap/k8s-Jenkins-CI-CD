@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: praysap/backend-travelmemory:latest
+          image: public.ecr.aws/x4m1c1q0/mern-backend:latest
           ports:
             - containerPort: 3000
           envFrom:
@@ -31,6 +31,6 @@ spec:
   selector:
     app: backend
   ports:
-    - port: 3000
+    - port: 80
       targetPort: 3000
   type: LoadBalancer
